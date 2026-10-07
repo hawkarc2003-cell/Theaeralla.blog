@@ -1,0 +1,1684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Awkward Era — THEAERALLA</title>
+<meta name="description" content="A practical, interactive note for creators who are still figuring it out.">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap');
+
+:root{
+  --paper:#f7f1e9;
+  --paper2:#efe6dc;
+  --ink:#211d1c;
+  --muted:#756b65;
+  --rose:#c88f91;
+  --rose2:#e8c9c8;
+  --lilac:#d9d0df;
+  --line:rgba(33,29,28,.14);
+  --dark:#292423;
+}
+
+*{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"DM Sans",Arial,sans-serif;
+  line-height:1.65;
+}
+
+a{color:inherit}
+button{font:inherit}
+
+.progress{
+  position:fixed;
+  top:0;
+  left:0;
+  height:4px;
+  width:0;
+  background:var(--ink);
+  z-index:100;
+}
+
+nav{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(247,241,233,.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+
+.navin{
+  max-width:1080px;
+  margin:auto;
+  padding:15px 22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  font-weight:600;
+  letter-spacing:.16em;
+  font-size:13px;
+}
+
+.navlinks{
+  display:flex;
+  gap:20px;
+  font-size:12px;
+  color:var(--muted);
+}
+
+.navlinks a{text-decoration:none}
+
+.wrap{
+  max-width:1000px;
+  margin:auto;
+  padding:0 22px;
+}
+
+.hero{
+  min-height:92vh;
+  display:grid;
+  place-items:center;
+  padding:65px 0 90px;
+}
+
+.hero-grid{
+  width:100%;
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:50px;
+  align-items:center;
+}
+
+.kicker{
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  font-size:11px;
+  color:var(--muted);
+  font-weight:600;
+}
+
+h1{
+  font:600 clamp(48px,7vw,88px)/.94 "Playfair Display",serif;
+  letter-spacing:-.045em;
+  margin:18px 0 25px;
+}
+
+.italic{font-style:italic}
+
+.hero p{
+  font-size:17px;
+  max-width:570px;
+  color:#514944;
+}
+
+.meta{
+  font-size:11px;
+  letter-spacing:.12em;
+  color:var(--muted);
+  margin-top:28px;
+}
+
+.hero-art{
+  height:510px;
+  border-radius:48% 48% 35% 35%;
+  background:var(--lilac);
+  position:relative;
+  overflow:hidden;
+  transform:rotate(2deg);
+  box-shadow:0 25px 70px rgba(33,29,28,.08);
+}
+
+.hero-art:before{
+  content:"";
+  position:absolute;
+  width:260px;
+  height:260px;
+  border-radius:50%;
+  background:var(--rose2);
+  left:-65px;
+  top:55px;
+}
+
+.hero-art:after{
+  content:"";
+  position:absolute;
+  width:210px;
+  height:330px;
+  border-radius:110px;
+  background:var(--paper);
+  right:45px;
+  bottom:-85px;
+  transform:rotate(-18deg);
+}
+
+.hero-note{
+  position:absolute;
+  z-index:2;
+  left:12%;
+  top:28%;
+  font:italic 42px/1.02 "Playfair Display",serif;
+  max-width:320px;
+}
+
+.hero-note small{
+  display:block;
+  font:600 10px "DM Sans";
+  letter-spacing:.18em;
+  margin-top:24px;
+  color:var(--muted);
+}
+
+.scroll{
+  margin-top:45px;
+  font-size:11px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+
+.section{
+  padding:95px 0;
+}
+
+.narrow{
+  max-width:690px;
+  margin:auto;
+}
+
+h2{
+  font:500 clamp(35px,5vw,55px)/1.05 "Playfair Display",serif;
+  letter-spacing:-.03em;
+  margin:0 0 25px;
+}
+
+h3{
+  font:600 20px/1.25 "Playfair Display",serif;
+}
+
+p{font-size:16px}
+
+.lead{
+  font-size:21px;
+  line-height:1.55;
+}
+
+.rule{
+  height:1px;
+  background:var(--line);
+  margin:50px 0;
+}
+
+.quote{
+  margin:55px 0;
+  padding:38px 35px;
+  background:#fffaf4;
+  border-left:4px solid var(--rose);
+  font:italic 29px/1.25 "Playfair Display",serif;
+}
+
+.highlight{
+  background:var(--dark);
+  color:#fffaf4;
+  border-radius:30px;
+  padding:45px;
+  margin:55px 0;
+}
+
+.highlight .mini{color:#cbbfba}
+.highlight h2{margin-bottom:15px}
+
+.choice-title{
+  font:500 34px "Playfair Display",serif;
+  margin-bottom:12px;
+}
+
+.choices{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin:25px 0;
+}
+
+.choice{
+  border:1px solid var(--line);
+  background:transparent;
+  border-radius:18px;
+  padding:20px;
+  text-align:left;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.choice:hover,
+.choice.active{
+  background:var(--ink);
+  color:var(--paper);
+  transform:translateY(-3px);
+}
+
+.choice strong{
+  display:block;
+  font-family:"Playfair Display";
+  font-size:19px;
+  margin-bottom:6px;
+}
+
+.choice span{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.choice.active span{color:#ddd2cb}
+
+.result{
+  display:none;
+  padding:25px;
+  border-radius:20px;
+  background:var(--paper2);
+  margin-top:15px;
+}
+
+.result.show{
+  display:block;
+  animation:fade .4s ease;
+}
+
+@keyframes fade{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:none}
+}
+
+.reveal{
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  padding:22px 0;
+  margin:30px 0;
+}
+
+.reveal button{
+  border:0;
+  background:none;
+  padding:0;
+  cursor:pointer;
+  font:500 18px "Playfair Display";
+  width:100%;
+  text-align:left;
+  display:flex;
+  justify-content:space-between;
+}
+
+.reveal button span:last-child{
+  font-family:"DM Sans";
+  font-size:22px;
+}
+
+.reveal-content{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .45s ease;
+}
+
+.reveal.open .reveal-content{max-height:400px}
+
+.reveal-content p{padding-top:12px}
+
+.exercise{
+  background:#fffaf4;
+  border-radius:28px;
+  padding:35px;
+  margin:40px 0;
+}
+
+.object{
+  font:italic 28px "Playfair Display";
+  margin-bottom:15px;
+}
+
+.steps{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-top:25px;
+}
+
+.step{
+  padding:18px;
+  border:1px solid var(--line);
+  border-radius:15px;
+}
+
+.step b{
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+}
+
+.step p{
+  font-size:14px;
+  margin:7px 0 0;
+}
+
+.challenge{
+  background:var(--dark);
+  color:#fffaf4;
+  border-radius:34px;
+  padding:48px;
+  margin-top:60px;
+}
+
+.days{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-top:25px;
+}
+
+.day{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  padding:17px;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:16px;
+}
+
+.day input{
+  margin-top:5px;
+  accent-color:#fff;
+}
+
+.day label{
+  font-size:14px;
+  cursor:pointer;
+}
+
+.day small{
+  display:block;
+  color:#c9beb8;
+  margin-top:3px;
+}
+
+.cta{
+  padding:100px 0;
+  text-align:center;
+}
+
+.cta p{
+  max-width:550px;
+  margin:0 auto 28px;
+  color:var(--muted);
+}
+
+.pill{
+  display:inline-block;
+  padding:13px 21px;
+  border-radius:999px;
+  background:var(--ink);
+  color:var(--paper);
+  text-decoration:none;
+  font-size:13px;
+}
+
+footer{
+  border-top:1px solid var(--line);
+  padding:30px 0;
+  color:var(--muted);
+  font-size:11px;
+  letter-spacing:.1em;
+  display:flex;
+  justify-content:space-between;
+}
+
+.fadein{
+  opacity:0;
+  transform:translateY(22px);
+  transition:opacity .8s ease,transform .8s ease;
+}
+
+.fadein.visible{
+  opacity:1;
+  transform:none;
+}
+
+/* SOCIAL ICONS */
+
+.social-rail{
+  position:fixed;
+  right:10px;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:90;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.social-rail button{
+  width:42px;
+  height:42px;
+  border:1px solid rgba(33,29,28,.18);
+  border-radius:50%;
+  background:rgba(247,241,233,.96);
+  color:var(--ink);
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  box-shadow:0 5px 18px rgba(33,29,28,.08);
+  transition:.2s;
+}
+
+.social-rail button:hover,
+.social-rail button.active{
+  background:var(--ink);
+  color:var(--paper);
+  transform:scale(1.06);
+}
+
+.social-rail svg{
+  width:19px;
+  height:19px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.7;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+/* EXACT PINTEREST LOGO STYLE */
+
+.pinterest-logo{
+  width:21px;
+  height:21px;
+  display:block;
+}
+
+.social-rail .pinterest-button.active .pinterest-logo,
+.social-rail .pinterest-button:hover .pinterest-logo{
+  filter:invert(1);
+}
+
+.social-pop{
+  position:fixed;
+  right:62px;
+  top:50%;
+  transform:translateY(-50%);
+  width:min(275px,calc(100vw - 82px));
+  background:var(--dark);
+  color:var(--paper);
+  border-radius:19px;
+  padding:18px 19px;
+  box-shadow:0 18px 50px rgba(33,29,28,.2);
+  display:none;
+  z-index:91;
+}
+
+.social-pop.show{
+  display:block;
+  animation:fade .22s ease;
+}
+
+.social-pop .pop-label{
+  font-size:9px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:#c9beb8;
+  margin-bottom:5px;
+}
+
+.social-pop .pop-name{
+  font:500 21px/1.1 "Playfair Display",serif;
+  margin-bottom:7px;
+}
+
+.social-pop .pop-detail{
+  font-size:12px;
+  color:#ddd2cb;
+  word-break:break-word;
+  margin-bottom:12px;
+}
+
+.social-pop a{
+  color:var(--paper);
+  font-size:11px;
+  text-decoration:none;
+  border-bottom:1px solid rgba(255,255,255,.4);
+  padding-bottom:2px;
+}
+
+/* MOBILE */
+
+@media(max-width:720px){
+
+  .navlinks{gap:11px}
+
+  .navlinks a:nth-child(2){
+    display:none;
+  }
+
+  .hero{
+    padding:55px 0 65px;
+    min-height:auto;
+  }
+
+  .hero .wrap{
+    padding-left:22px;
+    padding-right:22px;
+  }
+
+  .hero-grid{
+    grid-template-columns:1fr;
+    gap:35px;
+  }
+
+  .hero-art{
+    height:330px;
+    border-radius:42% 42% 30% 30%;
+  }
+
+  .hero-note{
+    font-size:31px;
+    max-width:230px;
+  }
+
+  .choices,
+  .steps,
+  .days{
+    grid-template-columns:1fr;
+  }
+
+  .section{
+    padding:65px 18px;
+  }
+
+  .narrow{
+    width:100%;
+    max-width:none;
+    padding:0;
+  }
+
+  .quote{
+    padding:27px 22px;
+    font-size:24px;
+  }
+
+  .highlight,
+  .challenge{
+    padding:30px 24px;
+    width:100%;
+    margin-left:0;
+    margin-right:0;
+  }
+
+  footer{
+    gap:15px;
+    flex-direction:column;
+  }
+
+  .social-rail{
+    right:8px;
+    gap:7px;
+  }
+
+  .social-rail button{
+    width:40px;
+    height:40px;
+    background:rgba(247,241,233,.98);
+  }
+
+  .social-rail svg{
+    width:20px;
+    height:20px;
+  }
+
+  .social-pop{
+    right:55px;
+    width:min(265px,calc(100vw - 82px));
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="progress" id="progress"></div>
+
+<!-- SOCIAL ICONS -->
+<div class="social-rail">
+
+  <button class="social-button"
+          data-social="instagram"
+          aria-label="Instagram">
+
+    <svg viewBox="0 0 24 24">
+      <rect x="3.5" y="3.5" width="17" height="17" rx="5"/>
+      <circle cx="12" cy="12" r="4"/>
+      <circle cx="17.4" cy="6.7" r="1"
+              fill="currentColor"
+              stroke="none"/>
+    </svg>
+
+  </button>
+
+
+  <button class="social-button pinterest-button"
+          data-social="pinterest"
+          aria-label="Pinterest">
+
+    <!-- Pinterest P -->
+    <svg class="pinterest-logo"
+         viewBox="0 0 24 24"
+         aria-hidden="true">
+
+      <path
+        fill="currentColor"
+        stroke="none"
+        d="M12.05 2.2c-5.43 0-8.27 3.9-8.27 7.18
+        0 2.04.77 3.85 2.43 4.53
+        .27.11.51 0 .59-.3
+        .05-.21.18-.72.24-.94
+        .08-.3.05-.4-.17-.66
+        -.48-.57-.79-1.31-.79-2.37
+        0-3.06 2.29-5.8 5.97-5.8
+        3.07 0 4.76 1.88 4.76 4.39
+        0 3.3-1.46 6.09-3.62 6.09
+        -1.2 0-2.1-.99-1.81-2.2
+        .35-1.44 1.04-2.99 1.04-4.03
+        0-.93-.5-1.71-1.52-1.71
+        -1.21 0-2.18 1.25-2.18 2.92
+        0 1.06.36 1.78.36 1.78
+        s-1.24 5.25-1.46 6.18
+        c-.43 1.83-.06 4.07-.03 4.3
+        .02.14.2.17.28.07
+        .12-.16 1.68-2.08 2.21-3.98
+        .15-.54.88-3.43.88-3.43
+        .43.83 1.68 1.56 3.01 1.56
+        3.96 0 6.65-3.61 6.65-8.45
+        0-3.66-3.1-7.05-7.81-7.05z"/>
+
+    </svg>
+
+  </button>
+
+
+  <button class="social-button"
+          data-social="email"
+          aria-label="Email">
+
+    <svg viewBox="0 0 24 24">
+      <rect x="3" y="5" width="18" height="14" rx="2"/>
+      <path d="m4 7 8 6 8-6"/>
+    </svg>
+
+  </button>
+
+</div>
+
+
+<div class="social-pop"
+     id="socialPop">
+
+  <div class="pop-label" id="popLabel"></div>
+  <div class="pop-name" id="popName"></div>
+  <div class="pop-detail" id="popDetail"></div>
+  <a id="popLink" href="#"></a>
+
+</div>
+
+
+<!-- NAVIGATION -->
+
+<nav>
+
+  <div class="navin">
+
+    <div class="logo">
+      THEAERALLA
+    </div>
+
+    <div class="navlinks">
+
+      <a href="#read">
+        READ
+      </a>
+
+      <a href="#reset">
+        RESET
+      </a>
+
+      <a href="#about">
+        ABOUT
+      </a>
+
+    </div>
+
+  </div>
+
+</nav>
+
+
+<main>
+
+<!-- HERO -->
+
+<section class="hero">
+
+  <div class="wrap">
+
+    <div class="hero-grid">
+
+      <div class="fadein">
+
+        <div class="kicker">
+          A note for people becoming
+        </div>
+
+        <h1>
+          The awkward era
+          <br>
+          of <span class="italic">becoming</span>
+          a creator.
+        </h1>
+
+        <p>
+          The part where you're trying things,
+          changing your mind, comparing yourself,
+          and wondering if you're doing it wrong.
+        </p>
+
+        <div class="meta">
+          THEAERALLA / UGC · LIFESTYLE · INSPIRATION
+        </div>
+
+        <div class="scroll">
+          ↓ Start here
+        </div>
+
+      </div>
+
+
+      <div class="hero-art fadein">
+
+        <div class="hero-note">
+
+          Not behind.
+          <br>
+
+          <span class="italic">
+            You're becoming.
+          </span>
+
+          <small>
+            THEAERALLA / 01
+          </small>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- SECTION 01 -->
+
+<section id="read" class="section">
+
+  <div class="narrow fadein">
+
+    <div class="kicker">
+      01 — The part nobody posts
+    </div>
+
+    <h2>
+      There is a weird stage nobody puts in the highlight reel.
+    </h2>
+
+    <p class="lead">
+      You know you want to create.
+      You save ideas. You watch other creators.
+      You imagine the version of yourself who is
+      confident on camera and somehow knows exactly
+      what to post.
+    </p>
+
+    <p>
+      But then you open your camera and suddenly
+      every idea feels embarrassing.
+    </p>
+
+    <p>
+      One day you want to make beauty content.
+      The next day it's lifestyle. Then you see
+      someone else's page and think,
+      <em>Maybe I should completely change mine.</em>
+    </p>
+
+    <p>
+      If that sounds familiar, you're not failing
+      at being a creator.
+    </p>
+
+    <div class="quote">
+      “You're in the awkward middle —
+      the part where your taste is ahead of your skills.”
+    </div>
+
+    <p>
+      And honestly? That's a useful place to be.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- SECTION 02 -->
+
+<section class="section">
+
+  <div class="narrow fadein">
+
+    <div class="kicker">
+      02 — Choose your problem
+    </div>
+
+    <div class="choice-title">
+      What feels most like you right now?
+    </div>
+
+    <p style="color:var(--muted)">
+      Tap one. I'll give you a starting point
+      instead of another motivational speech.
+    </p>
+
+    <div class="choices">
+
+      <button class="choice"
+              data-result="compare">
+
+        <strong>
+          “I compare.”
+        </strong>
+
+        <span>
+          Everyone looks further ahead.
+        </span>
+
+      </button>
+
+
+      <button class="choice"
+              data-result="niche">
+
+        <strong>
+          “I don't know my thing.”
+        </strong>
+
+        <span>
+          Everything interests me.
+        </span>
+
+      </button>
+
+
+      <button class="choice"
+              data-result="post">
+
+        <strong>
+          “I don't post.”
+        </strong>
+
+        <span>
+          I keep waiting for perfect.
+        </span>
+
+      </button>
+
+    </div>
+
+
+    <div id="compare" class="result">
+
+      <b>Try this:</b>
+      for one week, stop asking
+      “What are they doing?” and ask
+      “What did I notice?”
+
+      Your job is to collect your own
+      observations, not imitate someone
+      else's finished identity.
+
+    </div>
+
+
+    <div id="niche" class="result">
+
+      <b>Try this:</b>
+      don't choose a permanent niche.
+      Choose a repeatable lens.
+
+      “Things that make everyday life feel better”
+      can hold beauty, outfits, routines, products,
+      places and stories.
+
+    </div>
+
+
+    <div id="post" class="result">
+
+      <b>Try this:</b>
+      lower the stakes.
+
+      Make one piece that is deliberately a 6/10.
+      The goal is not to impress anyone.
+      The goal is to become someone who publishes.
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- SECTION 03 -->
+
+<section class="section">
+
+  <div class="narrow fadein">
+
+    <div class="kicker">
+      03 — Your aesthetic isn't hiding somewhere
+    </div>
+
+    <h2>
+      Stop trying to “find” your aesthetic.
+    </h2>
+
+    <p>
+      You build it by repeating what you genuinely like.
+    </p>
+
+
+    <div class="reveal">
+
+      <button>
+
+        <span>
+          Do the 20-save test
+        </span>
+
+        <span>
+          +
+        </span>
+
+      </button>
+
+
+      <div class="reveal-content">
+
+        <p>
+          Open your saved folder.
+          Pick 20 images you would still love
+          if nobody knew who posted them.
+
+          Put them together.
+
+          Look for repetition:
+          lighting, textures, framing, colours,
+          expressions, locations, words.
+
+          Those patterns are more useful than
+          an aesthetic label.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="reveal">
+
+      <button>
+
+        <span>
+          Then steal the pattern — not the person
+        </span>
+
+        <span>
+          +
+        </span>
+
+      </button>
+
+
+      <div class="reveal-content">
+
+        <p>
+          If you love a creator's soft close-ups,
+          don't copy their exact video.
+
+          Ask what you actually love:
+          intimacy? slow movement? natural light?
+
+          Then bring that ingredient
+          into your own world.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="reveal">
+
+      <button>
+
+        <span>
+          Let your taste change
+        </span>
+
+        <span>
+          +
+        </span>
+
+      </button>
+
+
+      <div class="reveal-content">
+
+        <p>
+          Your first visual identity is allowed
+          to be temporary.
+
+          Changing your mind isn't proof
+          that you're inconsistent.
+
+          It can be proof that you're paying attention.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- SECTION 04 -->
+
+<section class="section">
+
+  <div class="narrow fadein">
+
+    <div class="kicker">
+      04 — When you don't know what to post
+    </div>
+
+    <h2>
+      Use one ordinary thing.
+    </h2>
+
+    <p>
+      Don't wait for a “content idea.”
+      Pick something already sitting near you.
+    </p>
+
+
+    <div class="exercise">
+
+      <div class="object">
+        Your object: a lip balm.
+        A mug. A bracelet. Anything.
+      </div>
+
+
+      <div class="steps">
+
+        <div class="step">
+
+          <b>
+            01 · Show it
+          </b>
+
+          <p>
+            Take a clean photo with one
+            interesting detail.
+          </p>
+
+        </div>
+
+
+        <div class="step">
+
+          <b>
+            02 · Move it
+          </b>
+
+          <p>
+            Make a 5–8 second video with
+            your hand entering the frame.
+          </p>
+
+        </div>
+
+
+        <div class="step">
+
+          <b>
+            03 · Say something
+          </b>
+
+          <p>
+            Give one honest opinion.
+            Not a review essay.
+          </p>
+
+        </div>
+
+
+        <div class="step">
+
+          <b>
+            04 · Help someone
+          </b>
+
+          <p>
+            Share one tiny tip connected to it.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <p class="lead">
+      One object just gave you
+      <strong>four pieces of content</strong>.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- SECTION 05 -->
+
+<section class="section">
+
+  <div class="wrap">
+
+    <div class="highlight fadein">
+
+      <div class="kicker mini">
+        05 — The comparison trap
+      </div>
+
+      <h2>
+        Someone else's chapter 20 will always
+        make your chapter 2 feel small.
+      </h2>
+
+      <p>
+        So don't compete on polish while
+        you're still building your process.
+      </p>
+
+      <p>
+        Your useful question is not
+        “Why am I not there yet?”
+      </p>
+
+      <p>
+        <strong>
+          Ask: “What can I practise today
+          that makes tomorrow easier?”
+        </strong>
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- SECTION 06 -->
+
+<section id="reset" class="section">
+
+  <div class="wrap">
+
+    <div class="challenge fadein">
+
+      <div class="kicker mini">
+        06 — A tiny reset
+      </div>
+
+      <h2>
+        Your 7-day creator reset.
+      </h2>
+
+      <p>
+        No posting every day.
+        No “wake up at 5am.”
+        Just seven small actions.
+      </p>
+
+
+      <div class="days">
+
+        <div class="day">
+
+          <input type="checkbox" id="d1">
+
+          <label for="d1">
+
+            <b>
+              Day 1 — Notice
+            </b>
+
+            <small>
+              Save 5 things you genuinely like.
+            </small>
+
+          </label>
+
+        </div>
+
+
+        <div class="day">
+
+          <input type="checkbox" id="d2">
+
+          <label for="d2">
+
+            <b>
+              Day 2 — Collect
+            </b>
+
+            <small>
+              Write 10 things you could talk about
+              for 5 minutes.
+            </small>
+
+          </label>
+
+        </div>
+
+
+        <div class="day">
+
+          <input type="checkbox" id="d3">
+
+          <label for="d3">
+
+            <b>
+              Day 3 — Make
+            </b>
+
+            <small>
+              Create one deliberately imperfect piece.
+            </small>
+
+          </label>
+
+        </div>
+
+
+        <div class="day">
+
+          <input type="checkbox" id="d4">
+
+          <label for="d4">
+
+            <b>
+              Day 4 — Study
+            </b>
+
+            <small>
+              Analyse one creator:
+              what exactly holds your attention?
+            </small>
+
+          </label>
+
+        </div>
+
+
+        <div class="day">
+
+          <input type="checkbox" id="d5">
+
+          <label for="d5">
+
+            <b>
+              Day 5 — Repeat
+            </b>
+
+            <small>
+              Remake your own idea with one change.
+            </small>
+
+          </label>
+
+        </div>
+
+
+        <div class="day">
+
+          <input type="checkbox" id="d6">
+
+          <label for="d6">
+
+            <b>
+              Day 6 — Share
+            </b>
+
+            <small>
+              Post before you feel completely ready.
+            </small>
+
+          </label>
+
+        </div>
+
+
+        <div class="day">
+
+          <input type="checkbox" id="d7">
+
+          <label for="d7">
+
+            <b>
+              Day 7 — Review
+            </b>
+
+            <small>
+              Write down what felt natural.
+              That's your clue.
+            </small>
+
+          </label>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- FINAL -->
+
+<section class="cta" id="about">
+
+  <div class="wrap fadein">
+
+    <div class="kicker">
+      One last thing
+    </div>
+
+    <h2>
+      You don't need a new personality.
+      <br>
+      You need more evidence that you can do this.
+    </h2>
+
+    <p>
+      Make things. Notice what feels like you.
+      Keep the parts that work.
+      Let the rest change.
+    </p>
+
+    <a class="pill" href="#read">
+      Read it again ↗
+    </a>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+  <div class="wrap"
+       style="display:flex;justify-content:space-between;width:100%;gap:15px">
+
+    <span>
+      © THEAERALLA
+    </span>
+
+    <span>
+      UGC · LIFESTYLE · INSPIRATION
+    </span>
+
+  </div>
+
+</footer>
+
+
+<script>
+
+const progress=document.getElementById('progress');
+
+window.addEventListener('scroll',()=>{
+
+  const h=document.documentElement.scrollHeight-window.innerHeight;
+
+  progress.style.width=
+    (window.scrollY/h*100)+'%';
+
+});
+
+
+const io=new IntersectionObserver(entries=>{
+
+  entries.forEach(e=>{
+
+    if(e.isIntersecting)
+      e.target.classList.add('visible');
+
+  });
+
+},{threshold:.12});
+
+
+document.querySelectorAll('.fadein')
+  .forEach(el=>io.observe(el));
+
+
+/* EXPANDABLE SECTIONS */
+
+document.querySelectorAll('.reveal button')
+.forEach(btn=>{
+
+  btn.addEventListener('click',()=>{
+
+    const box=btn.parentElement;
+
+    box.classList.toggle('open');
+
+    btn.querySelector('span:last-child').textContent=
+      box.classList.contains('open') ? '−' : '+';
+
+  });
+
+});
+
+
+/* CHOICES */
+
+document.querySelectorAll('.choice')
+.forEach(btn=>{
+
+  btn.addEventListener('click',()=>{
+
+    document.querySelectorAll('.choice')
+      .forEach(x=>x.classList.remove('active'));
+
+    document.querySelectorAll('.result')
+      .forEach(x=>x.classList.remove('show'));
+
+    btn.classList.add('active');
+
+    document.getElementById(
+      btn.dataset.result
+    ).classList.add('show');
+
+  });
+
+});
+
+
+/* SOCIAL BUTTONS */
+
+const socialData={
+
+  instagram:{
+    label:"Instagram",
+    name:"@theaeralla",
+    detail:"UGC · Lifestyle · Inspiration",
+    url:"https://instagram.com/theaeralla",
+    action:"Open Instagram ↗"
+  },
+
+  pinterest:{
+    label:"Pinterest",
+    name:"TRENDCART77",
+    detail:"My boards, ideas & visual inspiration",
+    url:"https://in.pinterest.com/TRENDCART77/",
+    action:"Open Pinterest ↗"
+  },
+
+  email:{
+    label:"Email",
+    name:"hawkarc2003@gmail.com",
+    detail:"For collaborations & enquiries",
+    url:"mailto:hawkarc2003@gmail.com",
+    action:"Send an email ↗"
+  }
+
+};
+
+
+const pop=document.getElementById('socialPop');
+
+const popLabel=document.getElementById('popLabel');
+const popName=document.getElementById('popName');
+const popDetail=document.getElementById('popDetail');
+const popLink=document.getElementById('popLink');
+
+
+document.querySelectorAll(
+  '.social-rail .social-button'
+)
+.forEach(btn=>{
+
+  btn.addEventListener('click',e=>{
+
+    e.stopPropagation();
+
+    const item=
+      socialData[btn.dataset.social];
+
+    const same=
+      btn.classList.contains('active');
+
+
+    document.querySelectorAll(
+      '.social-rail .social-button'
+    )
+    .forEach(x=>x.classList.remove('active'));
+
+
+    if(same){
+
+      pop.classList.remove('show');
+
+      return;
+
+    }
+
+
+    btn.classList.add('active');
+
+    popLabel.textContent=item.label;
+    popName.textContent=item.name;
+    popDetail.textContent=item.detail;
+    popLink.textContent=item.action;
+    popLink.href=item.url;
+
+    pop.classList.add('show');
+
+  });
+
+});
+
+
+document.addEventListener('click',e=>{
+
+  if(
+    !e.target.closest('.social-rail') &&
+    !e.target.closest('.social-pop')
+  ){
+
+    pop.classList.remove('show');
+
+    document.querySelectorAll(
+      '.social-rail .social-button'
+    )
+    .forEach(x=>x.classList.remove('active'));
+
+  }
+
+});
+
+
+/* 7-DAY CHECKBOXES */
+
+document.querySelectorAll('.day input')
+.forEach(box=>{
+
+  const saved=
+    localStorage.getItem(box.id);
+
+  if(saved==='1')
+    box.checked=true;
+
+  box.addEventListener('change',()=>{
+
+    localStorage.setItem(
+      box.id,
+      box.checked ? '1' : '0'
+    );
+
+  });
+
+});
+
+</script>
+
+</body>
+</html>
